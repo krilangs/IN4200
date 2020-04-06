@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 int count_mutual_links2(int N, int N_links, int *row_ptr, int *col_idx, int *num_involvements)
 {   /* Count the total number of mutual web page linkage occurrences with the CRS format,
        as well as the number of involvements per web pages outbound for such mutual linkage

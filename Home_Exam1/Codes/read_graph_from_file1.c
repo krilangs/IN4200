@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 char** matrix2D(int N)
 {
     // Initialize a 2D NxN-matrix with zeros.

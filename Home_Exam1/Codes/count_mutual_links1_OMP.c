@@ -1,20 +1,17 @@
-#include <stdio.h>
-#include <omp.h>
-
 int count_mutual_links1(int N, char **table2D, int *num_involvements)
 {
     /* Count the total number of mutual webpage linkage occurrences
-           with the 2D table format, as well as the number of involvements
-           per webpages outbound for such mutual linkage occurrences.
-           Input:
-           * N               : Number of webpages.
-           * table2D         : 2D NxN-matrix containing the web graph data.
-           * num_involvements: Allocated array of length N containing the
-                               number of involvements per webpage.
-        */
+       with the 2D table format, as well as the number of involvements
+       per webpages outbound for such mutual linkage occurrences.
+       Input:
+       * N               : Number of webpages.
+       * table2D         : 2D NxN-matrix containing the web graph data.
+       * num_involvements: Allocated array of length N containing the
+                           number of involvements per webpage.
+    */
     int mutual_linkages = 0;
     int num_threads;
-    int threads = 5;
+    int threads = 8;
 
     #pragma omp parallel for reduction(+:mutual_linkages, num_involvements[:N]) schedule(auto) num_threads(threads)
     for (int i=0; i<N; i++){

@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "../read_graph_from_file1/read_graph1_main.c"
-#include "../read_graph_from_file2/read_graph2_main.c"
-#include "../count_mutual_links1/count_links1_main.c"
-#include "../count_mutual_links2/count_links2_main.c"
-#include "../top_n_webpages/top_webpages.c"
+#include "read_graph_from_file1.c"
+#include "read_graph_from_file2.c"
+#include "count_mutual_links1.c"
+#include "count_mutual_links2.c"
+#include "top_n_webpages.c"
 
 void test_2Dtable(){
     printf("\n---------------------------------");
@@ -22,7 +22,7 @@ void test_2Dtable(){
                    {0, 0, 0, 0, 1, 0, 0, 1},
                    {0, 0, 0, 0, 1, 1, 1, 0},};
 
-    printf("2D table:\n");
+    printf("*2D table:\n");
     for (int i=0; i<8; i++){
         for (int j=0; j<8; j++){
             printf(" %d ", M[i][j]);
@@ -32,9 +32,9 @@ void test_2Dtable(){
 }
 
 void test_mutual_linkages(){
-    printf("CRS:\n");
-    printf("row_ptr= 0| 1| 4| 5| 6| 9| 12| 14| 17|\n");
+    printf("*CRS:\n");
     printf("col_idx= 6 |0 |2 |3 |0 |1 |2 |3 |6 |3 |4 |7 |4 |7 |4 |5 |6 |\n");
+    printf("row_ptr= 0| 1| 4| 5| 6| 9| 12| 14| 17|\n");
     printf("\nMutual web linkages: 13\n");
     printf("0: 2| 1: 0| 2: 4| 3: 6| 4: 5| 5: 2| 6: 4| 7: 3|\n");
 }
@@ -60,7 +60,7 @@ int main()
     */
     int N;
     char** test_table;
-    char* file = "../8-webpages.txt";
+    char* file = "8-webpages.txt";
     printf("File: %s\n", file);
     printf("*Test 2D table format:\n");
     read_graph_from_file1(file, &N, &test_table);

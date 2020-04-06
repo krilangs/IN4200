@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-
 void top_n_webpages(int num_webpages, int *num_involvements, int n)
 {
     /* Find the top n webpages with respect to the number of
@@ -12,7 +9,6 @@ void top_n_webpages(int num_webpages, int *num_involvements, int n)
        * n               : Number of the top involved webpages we
                            we choose to look at.
     */
-
     if (n > num_webpages){
         printf("\nNumber of top webpages wanted is bigger than total number of webpages.\n");
         n = num_webpages;
@@ -23,8 +19,8 @@ void top_n_webpages(int num_webpages, int *num_involvements, int n)
 
     // Loop through the array n times, to find the maximum value of each iteration.
     for (int i = 0; i < n; i++){
-        int maxval = 0;
-        int maxidx = 0;
+        int maxval = -1;
+        int maxidx = -1;
         for (int j = 0; j < num_webpages; j++){
             if (num_involvements[j] > maxval){
                 maxval = num_involvements[j];
@@ -33,7 +29,7 @@ void top_n_webpages(int num_webpages, int *num_involvements, int n)
         }
         val_list[i] = maxval;
         idx_list[i] = maxidx;
-        num_involvements[maxidx] = 0;
+        num_involvements[maxidx] = -1;
     }
 
     for (int i = 0; i < n; i++){

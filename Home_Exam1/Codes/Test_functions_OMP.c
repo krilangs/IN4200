@@ -2,24 +2,24 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "../read_graph_from_file1/read_graph1_main.c"
-#include "../read_graph_from_file2/read_graph2_main.c"
-#include "../OMP_count_mutual_links1/OMP_count_links1.c"
-#include "../OMP_count_mutual_links2/OMP_count_links2.c"
-#include "../OMP_top_n_webpages/OMP_top_webpages.c"
 #include <omp.h>
+#include "read_graph_from_file1.c"
+#include "read_graph_from_file2.c"
+#include "count_mutual_links1_OMP.c"
+#include "count_mutual_links2_OMP.c"
+#include "top_n_webpages_OMP.c"
 
 int main(int argc, char *argv[])
-{   // Terminal>gcc -03 -fopenmp -o Test_program.exe Test_program.c <filename> <Task> <#top pages>
-    /* After name of the text-file in the terminal, choose:
-     * - Task = 2D to run functions for 2D table, which runs:
+{   /* Terminal>... Test_functions_OMP.c <filename> <Task> <n>
+     * - <filename> = name of the text file to be read.
+     * - <Task> = 2D to run functions for 2D table, which runs:
      *   -> read_graph_from_file1()
      *   -> OMP_count_mutual_links1()
-     * - Task = CRS to run functions for CRS format, which runs:
+     * - <Task> = CRS to run functions for CRS format, which runs:
      *   -> read_graph_from_file2()
      *   -> OMP_count_mutual_links2()
      *   -> OMP_top_n_webpages()
-     * - #top pages = number of top web pages to look at (for CRS)
+     * - <n> = number of top web pages to look at (for CRS)
      */
     if (!strcmp(argv[2], "2D")){
         printf("Run 2D table format parallelized:\n");
