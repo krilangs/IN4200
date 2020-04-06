@@ -19,7 +19,7 @@
 prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},frame=single,showtabs=false,showspaces=false,showstringspaces=false,identifierstyle=\ttfamily,keywordstyle=\color[rgb]{0,0,1},commentstyle=\color[rgb]{0.133,0.545,0.133},stringstyle=\color[rgb]{0.627,0.126,0.941},literate={å}{{\r a}}1 {Å}{{\r A}}1 {ø}{{\o}}1}
 
 % Use for references
-%\usepackage[sort&compress,square,comma,numbers]{natbib}
+\usepackage[sort&compress,square,comma,numbers]{natbib}
 %\DeclareRobustCommand{\citeext}[1]{\citeauthor{#1}~\cite{#1}}
 
 % Fix spacing in tables and figures
@@ -43,21 +43,23 @@ prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},frame=single,show
 \begin{document}%\layout
 \maketitle
 \begin{abstract}
-	In this report we first describe the most important algorithmic and programming info done in C. Then we look at the time measurements of the implemented functions we have used both with and without parallelization.
+	In this report we first describe the most important algorithmic and programming info done in C. Then we look at the time measurements of the implemented functions we have used, both with and without parallelization.
 \end{abstract}
 
 \section{Data}
 \label{sect:Data}
-Then example-data of real-world web graph files are downloaded from \url{https://snap.stanford.edu/data/web-NotreDame.html}. We have used three different text files:
+The coding is computed with a Windows 10 64-bit operating system. It has an Intel(R) Core(TM) i7-7700HQ CPU with 4 physical cores and 8 virtual cores.
+
+Then example-data of real-world web graph files are downloaded from \url{https://snap.stanford.edu/data/web-NotreDame.html}. The file format of the web graphs we look at are further explained in the project description \cite{IN4200}. We have used three different text files:
 \begin{enumerate}
-	\item \textbf{8-webpages.txt}: This is the project example that is converted to a web graph file containing the linkage connection information (file format explained in the project description). This example is used to confirm that our functions give the same/correct values as the example does.
-	\item \textbf{p2p-Gnutella05.txt}: This file is used mostly for the 2D table format for reading the web graph info, since this text file has the biggest number of nodes and edges the 2D table can allocate (at least by our implementation and tested sizes of various text files).
+	\item \textbf{8-webpages.txt}: This is the project example that is converted to a web graph file containing the linkage connection information. This example is used to confirm that our functions give the same/correct values as the example does.
+	\item \textbf{p2p-Gnutella05.txt}: This file is used mostly for the 2D table format for reading the web graph info, since this text file has the biggest number of nodes and edges the 2D table can allocate in memory (at least by our implementation and tested sizes of various text files for this computer system).
 	\item \textbf{web-NotreDame.txt}: This is a large real-world web graph file used for the CRS format for reading the web graph info.
 \end{enumerate} 
 
 \section{Code structure}
 \label{sect:Code_struct}
-All the code is done in C, and are contained in the zip file \textbf{IN4200\_HE1\_15227}. This also contains the text files needed, a \textbf{README.txt} file for compilation explanation and Makefiles for the programs. 
+All the main code is done in C, and are contained in the zip file \textbf{IN4200\_HE1\_15227}. This zip file also contains the text files needed, a \textbf{README.txt} file for compilation explanation and Makefiles for the programs. We have also included the Python 3.7 file for plotting the time measurement of the parallelization.
 
 Each function is implemented into its own separate *.c file with the same filename as the function name. The names of the functions (*) are:
 \begin{itemize}
@@ -106,7 +108,7 @@ This function is also parallelized with OpenMP in a separate function with the s
 
 \subsection{Test programs}
 \label{subsect:Test_prog}
-These functions are used in three separate test programs (*.c) for reading the web graph info and counting mutual web linkages with 2D table and CRS format, and for finding the top web pages regarding involvements in mutual linkages with the CRS format:
+These functions are used in three separate test programs (*.c) for reading the web graph info and counting mutual web linkages with 2D table and CRS format, and for finding the top web pages regarding involvements in mutual linkages with the CRS format.
 
 \subsubsection{Test\_example}
 This is the test program of the project example with the \textbf{8-webpages.txt} file, which tests the correctness of the functions we have implemented to the project example where we know and print the results for comparison. This program just runs and prints out the wanted results made by the functions without any time measurements. The known values of this project example are added manually in the program to be printed as well for easy comparison between the results. 
@@ -119,9 +121,62 @@ The terminal input for this program is the text filename, it could be any web gr
 \subsubsection{Test\_functions\_OMP}
 This program does the exact same as the \textbf{Test\_functions} program, except that now we use OpenMP to parallelize and time the functions. The reading functions are not parallelized, only the three other functions ending with \_OMP. The printed results should yield the exact same solutions, only with faster time measured. We look at how the time measurements vary when we use different number of OpenMP threads as well. 
 
-To make things easier we separate the three programs into three separate folders, where they all import the functions from the same place. 
-
 \section{Time measurement}
 \label{sect:Time}
-...
+The timing of the serial code is done with the \textit{clock()} function from the \textit{$<$time.h$>$} library, while the parallel code is timed with the \textit{omp\_get\_wtime()} function from the \textit{$<$omp.h$>$} library. We only study the time measurements, since the functions are made to give the same solutions for serial and parallel codes.
+
+In Table \ref{tab:times} we see average times of the functions for both serial and parallel code when reading the \textbf{p2p-Gnutella05.txt} text file. The parallel codes are done with 8 threads for counting and sorting the web pages in this case. Here we see that the reading of the file are almost the same as expected, since the reading are not parallelized but still vary a little for each time we run our program. This is the same for both 2D table and CRS format for serial and parallel codes. For the 2D table counting of mutual linkages we get an approximate speed up of 3.55 of the average times from serial to parallel. For the CRS format, the used text file is so small that we cannot see any time difference here when counting the total mutual linkages. For the sorting of the top mutual linked web pages we get an approximate speed up of 7 from serial to parallel.
+
+To really test the parallelization of the CRS format we use the much larger web graph text file \textbf{web-NotreDame.txt}. The time measurements of the parallelized function count\_mutual\_links2\_OMP and top\_n\_webpages\_OMP can be seen in Figure \ref{fig:Time_count} and Figure \ref{fig:Time_sort}, respectively. There we see that the counting seems to use the shortest amount of CPU time at 3 threads, but there the time measured of the sorting is not so low. The best overall parallelized time seems to be around 8 threads, which seems to fit since the used computer has 8 virtual cores. In Table \ref{tab:CRS_times} we see the average time measurement of the CRS format functions for using both serial and parallelized implementation, with the use of 8 number of threads for the parallelized codes. The counting function is not much faster, but the sorting of the top involved web pages for mutual linkages gets a lot faster.
+
+\begin{table}[htbp!]
+	\centering
+	%\hspace{-1.0cm}
+	\begin{tabular}{ |c|c|c| }
+		\hline \rule{0pt}{13pt}
+		\text{Functions} &  \text{Serial [ms]} & \text{Parallel [ms]}\\
+		\hline \rule{0pt}{13pt}
+		read\_graph\_from\_file1 & 32 & 28\\
+		\hline \rule{0pt}{13pt}
+		read\_graph\_from\_file2 & 13 & 11  \\
+		\hline \rule{0pt}{13pt}
+		count\_mutual\_links1 & 515 & 145 \\
+		\hline \rule{0pt}{13pt}
+		count\_mutual\_links2 & $<$1 & $<$1 \\
+		\hline \rule{0pt}{13pt}
+		top\_n\_webpages & 7 & 1 \\
+		\hline
+	\end{tabular}	
+	\caption{Table of the average times (in ms) for reading, counting and sorting the \textbf{p2p-Gnutella05.txt} text file with the functions with both serial and parallel implementation. \label{tab:times}}
+\end{table}
+
+\begin{table}[htbp!]
+	\centering
+	%\hspace{-1.0cm}
+	\begin{tabular}{ |c|c|c| }
+		\hline \rule{0pt}{13pt}
+		\text{Functions} &  \text{Serial [ms]} & \text{Parallel [ms]}\\
+		\hline \rule{0pt}{13pt}
+		read\_graph\_from\_file2 & 386 &  381 \\
+		\hline \rule{0pt}{13pt}
+		count\_mutual\_links2 & 3 & 2 \\
+		\hline \rule{0pt}{13pt}
+		top\_n\_webpages & 10 & 1 \\
+		\hline
+	\end{tabular}	
+	\caption{Table of the average times (in ms) for reading, counting and sorting the \textbf{web-NotreDame.txt} text file with the CRS format in both serial and parallelized implementation. \label{tab:CRS_times}}
+\end{table}
+
+\begin{figure}[htbp!]
+	\centering\includegraphics[width=0.7\linewidth, height=0.5\linewidth]{Time_count.png}
+	\caption{Time measurements of count\_mutual\_links2\_OMP as function of the number of threads used. \label{fig:Time_count}}
+\end{figure} 
+
+\begin{figure}[htbp!]
+	\centering\includegraphics[width=0.7\linewidth, height=0.5\linewidth]{Time_sort.png}
+	\caption{Time measurements of top\_n\_webpages\_OMP as function of the number of threads used. \label{fig:Time_sort}}
+\end{figure} 
+
+\bibliographystyle{plainnat}
+\bibliography{myrefs}
 \end{document}
