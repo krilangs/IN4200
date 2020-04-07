@@ -1,13 +1,13 @@
 int count_mutual_links1(int N, char **table2D, int *num_involvements)
 {
-    /* Count the total number of mutual webpage linkage occurrences
+    /* Count the total number of mutual web page linkage occurrences
        with the 2D table format, as well as the number of involvements
-       per webpages outbound for such mutual linkage occurrences.
+       per web page as outbound for such mutual linkage occurrences.
        Input:
-       * N               : Number of webpages.
+       * N               : Number of web pages.
        * table2D         : 2D NxN-matrix containing the web graph data.
        * num_involvements: Allocated array of length N containing the
-                           number of involvements per webpage.
+                           number of involvements per web page.
     */
     int mutual_linkages = 0;
     int num_threads;

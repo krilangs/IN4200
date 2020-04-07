@@ -1,15 +1,16 @@
 int count_mutual_links2(int N, int N_links, int *row_ptr, int *col_idx, int *num_involvements)
-{   /* Count the total number of mutual webpage linkage occurrences with the CRS format,
-       as well as the number of involvements per webpages outbound for such mutual linkage
+{
+    /* Count the total number of mutual web page linkage occurrences with the CRS format,
+       as well as the number of involvements per web page as outbound for such mutual linkage
        occurrences.
        Input:
-       * N               : Number of webpages.
-       * N_links         : Number of direct links between the webpages.
+       * N               : Number of web pages.
+       * N_links         : Number of direct links between the web pages.
        * row_ptr         : 1D array of length N+1, contains indices at which new rows start
                            where there are links.
        * col_dix         : 1D array of length Nlinks, with column indices of all the direct links.
        * num_involvements: Allocated array of length N containing the
-                           number of involvements per webpage.
+                           number of involvements per web page.
     */
     int mutual_linkages = 0;
     int count;

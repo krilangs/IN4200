@@ -17,13 +17,13 @@ all_lin: $(PROGRAMS_lin)
 # Executables
 # -Windows:
 Test_example.exe : Test_example.c
-	$(CC) $(FLAGS) $< -o $@ -O3 -std=c99
+	$(CC) $(FLAGS) $< -o $@ -O3
 
 Test_functions.exe : Test_functions.c
-	$(CC) $(FLAGS) $< -o $@ -O3 -std=c99
+	$(CC) $(FLAGS) $< -o $@ -O3
 
 Test_functions_OMP.exe : Test_functions_OMP.c
-	$(CC) $(FLAGS) $< -o $@ -O3 -fopenmp -std=c99
+	$(CC) $(FLAGS) $< -o $@ -O3 -fopenmp
 
 # -Linux:
 Test_example.out : Test_example.c

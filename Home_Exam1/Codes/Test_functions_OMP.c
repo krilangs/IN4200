@@ -10,7 +10,8 @@
 #include "top_n_webpages_OMP.c"
 
 int main(int argc, char *argv[])
-{   /* Terminal>... Test_functions_OMP.c <filename> <Task> <n>
+{
+    /* Terminal>... Test_functions_OMP.c <filename> <Task> <n>
      * - <filename> = name of the text file to be read.
      * - <Task> = 2D to run functions for 2D table, which runs:
      *   -> read_graph_from_file1()
@@ -25,7 +26,7 @@ int main(int argc, char *argv[])
         printf("Run 2D table format parallelized:\n");
         int N;
         char** test_table;
-        char* file = argv[1];
+        char* file = argv[1];   // Choose text file to read
         printf("File: %s\n", file);
 
         // Read file and time the reading
@@ -68,7 +69,7 @@ int main(int argc, char *argv[])
 
         int num_webpages, N_links;
         int *row_ptr, *col_idx;
-        char* file = argv[1];   // Choose text-file to read
+        char* file = argv[1];   // Choose text file to read
         int n = atoi(argv[3]);  // Choose how many of the num_webpages to look at
         printf("File: %s\n", file);
 
@@ -102,7 +103,7 @@ int main(int argc, char *argv[])
         printf("\n");
         printf("\nTop %i web pages: \n", n);
 
-        // Find to web pages and take time sorting
+        // Find/sort top web pages and measure the time
         double start_top = omp_get_wtime();
         top_n_webpages(num_webpages, num_involvements, n);
         double stop_top = omp_get_wtime();

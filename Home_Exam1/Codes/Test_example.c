@@ -40,14 +40,14 @@ void test_mutual_linkages(){
 }
 
 void test_top_webpages(){
-    printf("Webpage no. 3 -> 6 linkages.\n"\
-           "Webpage no. 4 -> 5 linkages.\n"\
-           "Webpage no. 2 -> 4 linkages.\n"\
-           "Webpage no. 6 -> 4 linkages.\n"\
-           "Webpage no. 7 -> 3 linkages.\n"\
-           "Webpage no. 0 -> 2 linkages.\n"\
-           "Webpage no. 5 -> 2 linkages.\n"\
-           "Webpage no. 1 -> 0 linkages.\n");
+    printf("Web page no. 3 -> 6 linkages.\n"\
+           "Web page no. 4 -> 5 linkages.\n"\
+           "Web page no. 2 -> 4 linkages.\n"\
+           "Web page no. 6 -> 4 linkages.\n"\
+           "Web page no. 7 -> 3 linkages.\n"\
+           "Web page no. 0 -> 2 linkages.\n"\
+           "Web page no. 5 -> 2 linkages.\n"\
+           "Web page no. 1 -> 0 linkages.\n");
 }
 
 int main()
@@ -74,7 +74,7 @@ int main()
     int *num_involvements1 = (int*)calloc(N, sizeof (int));
     int mutual_linkages1 = count_mutual_links1(N, test_table, num_involvements1);
     printf("Mutual web linkages: %i\n", mutual_linkages1);
-    printf("Number of involvements per webpage as outbound (webpage: no.involvements|):\n");
+    printf("Number of involvements per web page as outbound (web page: no.involvements|):\n");
     for (int i = 0; i < N; i++){
         printf("%i: %i| ", i, num_involvements1[i]);
     }
@@ -99,7 +99,7 @@ int main()
     int *num_involvements2 = (int*)calloc(N, sizeof (int));
     int mutual_linkages = count_mutual_links2(N, N_links, row_ptr, col_idx, num_involvements2);
     printf("\nMutual web linkages: %i\n", mutual_linkages);
-    printf("Number of involvements per webpage as outbound:\n");
+    printf("Number of involvements per web page as outbound:\n");
     for (int i = 0; i < N; i++){
         printf("%i: %i| ", i, num_involvements2[i]);
     }

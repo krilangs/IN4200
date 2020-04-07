@@ -1,16 +1,16 @@
 void top_n_webpages(int num_webpages, int *num_involvements, int n)
 {
-    /* Find the top n webpages with respect to the number of
+    /* Find the top n web pages with respect to the number of
        involvements in mutual linkages.
        Input:
-       * num_webpages    : Number of webpages.
+       * num_webpages    : Number of web pages.
        * num_involvements: Allocated array of length N containing
                            the number of involvements per webpage.
-       * n               : Number of the top involved webpages we
+       * n               : Number of the top involved web pages
                            we choose to look at.
     */
     if (n > num_webpages){
-        printf("\nNumber of top webpages wanted is bigger than total number of webpages.\n");
+        printf("\nNumber of top web pages wanted is bigger than total number of webpages.\n");
         n = num_webpages;
     }
 
@@ -37,7 +37,7 @@ void top_n_webpages(int num_webpages, int *num_involvements, int n)
             vals[i + mythread*n] = maxval;
             idx[i + mythread*n] = maxidx;
 
-            /* Remove this maximum value from num_involvements array,
+            /* "Remove" this maximum value from num_involvements array,
              * since we want to find the next highest value next iteration.
              */
             num_involvements[maxidx] = num_involvements[maxidx] * (-1);
@@ -82,7 +82,7 @@ void top_n_webpages(int num_webpages, int *num_involvements, int n)
     }
 
     for (int i = 0; i < n; i++){
-        printf("Webpage no. %d -> %d linkages.\n",\
+        printf("Web page no. %d -> %d linkages.\n",\
                idx_list[i], val_list[i]);
     }
 
