@@ -1,5 +1,5 @@
 *Compile and run manually in terminal (Windows):
-# For Linux: use *.out instead of *.exe, and ./*.out when running executable. Maybe try gcc-9 when compiling for other version.
+# For Linux: use *.out instead of *.exe, and ./*.out when running executable. Maybe try gcc-9 if compilation failes with wrong version.
 
 -Use 8-webpages.txt to test that our functions perform as they should.
 Compile:
@@ -7,7 +7,7 @@ Compile:
 Run:
 	Terminal> Test_example.exe
 
--Use p2p-Gnutella05.txt to compare speed for 2D table vs CRS formats (Maximum size for 2D table).
+-Use p2p-Gnutella05.txt to compare speed for 2D table vs CRS formats (Maximum size of text files for 2D table to allocate).
 -Use web-NotreDame.txt for CRS format serial vs parallel.
 Compile:
 	Terminal> gcc -O3 -o Test_functions.exe Test_functions.c
