@@ -48,7 +48,7 @@ prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},frame=single,show
 
 \section{Data}
 \label{sect:Data}
-The coding is computed with a Windows 10 64-bit operating system. It has an Intel(R) Core(TM) i7-7700HQ CPU with 4 physical cores and 8 virtual cores.
+The coding is computed with a Windows 10 64-bit operating system. It has an Intel(R) Core(TM) i7-7700HQ CPU with 4 physical cores and 8 virtual cores. The codes (and Makefile) should also work on a Linux system as explained in the \textbf{README.txt} file.
 
 Then example-data of real-world web graph files are downloaded from \url{https://snap.stanford.edu/data/web-NotreDame.html}. The file format of the web graphs we look at are further explained in the project description \cite{IN4200}. We have used three different text files:
 \begin{enumerate}
@@ -59,7 +59,7 @@ Then example-data of real-world web graph files are downloaded from \url{https:/
 
 \section{Code structure}
 \label{sect:Code_struct}
-All the main code is done in C, and are contained in the zip file \textbf{IN4200\_HE1\_15227}. This zip file also contains the text files needed, a \textbf{README.txt} file for compilation explanation and Makefiles for the programs. We have also included the Python 3.7 file for plotting the time measurement of the parallelization.
+All the main code is done in C, and are contained in the zip file \textbf{IN4200\_HE1\_15227}. This zip file also contains the text files needed, a \textbf{README.txt} file for compilation explanation, a Makefile and we have also included the Python 3.7 file for plotting the time measurement of the parallelization.
 
 Each function is implemented into its own separate *.c file with the same filename as the function name. The names of the functions (*) are:
 \begin{itemize}
@@ -76,10 +76,10 @@ These functions are imported by other programs which do the main computations by
 \subsection{Functions}
 \label{subsect:Functions}
 \subsubsection{read\_graph\_from\_file1}
-This function opens a given web graph text file, with the file format as explained in the project description, allocates a 2D table of zeros of dimension $N\times N$ with $N$ number of web pages, and reads the web graph info into the table. 1's in the table are given when there is a direct link from a web page outbound to a web page inbound excluding self-links. Here columns are noted as outbound and rows are noted as inbound. The function skips unwanted lines in the files with text at the top, only extracting the number of web pages $N$ (nodes) and direct linkages $N_{links}$ (edges), and then check for direct linkages for the rest of the file to add to the table. This 2D table is later used for counting mutual linkages.
+This function opens a given web graph text file, with the file format as explained in the project description, allocates a 2D table of zeros of dimension $N\times N$ with $N$ number of web pages, and reads the web graph info into the table. 1's in the table are given when there is a direct link from a web page outbound to a web page inbound, excluding self-links. Here columns are noted as outbound and rows are noted as inbound. The function skips unwanted lines in the files with text at the top, only extracting the number of web pages $N$ (nodes) and direct linkages $N_{links}$ (edges), and then check for direct linkages for the rest of the file to add to the table. This 2D table is later used for counting mutual linkages.
 
 \subsubsection{read\_graph\_from\_file2}
-This functions does the same as first function, only now with a compressed row storage (CRS) format instead of a 2D table format. This is much more memory efficient since we will often have a lot of unnecessary 0's in the 2D table, and we only care about the 1's. 
+This function does the same as first function, only now with a compressed row storage (CRS) format instead of a 2D table format. This is much more memory efficient since we will often have a lot of unnecessary 0's in the 2D table, and we only care about the 1's. 
 
 This format uses two 1D arrays of integer values. One \textbf{col\_idx} array of length $N_{links}$ storing the column indices corresponding to the direct links row by row, and one \textbf{row\_ptr} array of length $N+1$ containing index values at which new rows start where there are direct links. These two arrays are later used to count the mutual linkages.
 
@@ -114,7 +114,7 @@ These functions are used in three separate test programs (*.c) for reading the w
 This is the test program of the project example with the \textbf{8-webpages.txt} file, which tests the correctness of the functions we have implemented to the project example where we know and print the results for comparison. This program just runs and prints out the wanted results made by the functions without any time measurements. The known values of this project example are added manually in the program to be printed as well for easy comparison between the results. 
 
 \subsubsection{Test\_functions}
-This programs runs the computations of the functions with both a 2D table and CRS format of \textbf{p2p-Gnutella05.txt} and \textbf{web-NotreDame.txt} files. The program runs and prints the wanted results and does a time measurement of each of the functions as well. The important printouts are the number of mutual web page linkages, the number of involvements per web page as outbound up to a maximum of the first 100 web pages, the n chosen top counted web pages and the time measurements of the functions.
+This program runs the computations of the functions with both a 2D table and CRS format of \textbf{p2p-Gnutella05.txt} and \textbf{web-NotreDame.txt} files. The program runs and prints the wanted results and does a time measurement of each of the functions as well. The important printouts are the number of mutual web page linkages, the number of involvements per web page as outbound up to a maximum of the first 100 web pages, the n chosen top counted web pages and the time measurements of the functions.
 
 The terminal input for this program is the text filename, it could be any web graph text file we want but we only use the already mentioned text files here, the specified format to be used and the number of top web pages we want to print for the CRS format. The CRS format is faster than the 2D table format, that is why we only use the \textbf{top\_n\_webpages} function with the CRS format.
 
