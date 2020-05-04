@@ -1,6 +1,5 @@
-#include "../count_friends_of_ten/count_friends_of_ten.c"
-#include "../common.h"
-
+#include "common.h"
+#include "count_friends_of_ten.c"
 
 int main(int argc, char **argv)
 {
@@ -11,8 +10,9 @@ int main(int argc, char **argv)
     generate_known_2d_array(&v);
     int tot_friends_test = count_friends_of_ten(4, 5, v);
 
-    printf("2D array dimension: 4x5\n");
-    printf("Total number of friends of 10 (should be 7): %i\n", tot_friends_test);
+    printf("Test counting for known solution:\n");
+    printf(" 2D array dimension: 4x5\n");
+    printf(" Total number of friends of 10 (should be 7): %i\n", tot_friends_test);
 
     // Count total number of friends of 10 for a randomly generated 2D array.
     N = atoi(argv[1]);  // Columns
@@ -28,11 +28,13 @@ int main(int argc, char **argv)
     clock_t stop_count = clock();
     double time_count = (double) (stop_count - start_count)*1.0/CLOCKS_PER_SEC;
 
-    printf("2D array dimension: %ix%i\n", M, N);
-    printf("Total number of friends of 10: %i\n", tot_friends);
-    printf("2D array generated in: %f s\n", time_generate);
-    printf("Time calculating friends of 10: %f s\n", time_count);
+    printf("Serial counting:\n");
+    printf(" 2D array dimension: %ix%i\n", M, N);
+    printf(" Total number of friends of 10: %i\n", tot_friends);
+    printf(" 2D array generated in: %f s\n", time_generate);
+    printf(" Time calculating friends of 10: %f s\n", time_count);
 
+    free(v[0]);
     free(v);
     return 0;
 }

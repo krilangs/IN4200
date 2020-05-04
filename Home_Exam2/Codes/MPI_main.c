@@ -1,6 +1,6 @@
 #include <mpi.h>
-#include "../common.h"
-#include "../MPI_count_friends_of_ten/MPI_count_friends_of_ten.c"
+#include "common.h"
+#include "MPI_count_friends_of_ten.c"
 
 int main (int argc, char **argv)
 {
@@ -51,7 +51,7 @@ int main (int argc, char **argv)
         free(v);
     }
 
-    MPI_Finalize ();
+    MPI_Finalize();
 
     return 0;
 }
