@@ -1,14 +1,17 @@
 *Compile and run manually in terminal (Windows):
 # For Linux: use *.out instead of *.exe, and ./*.out when running executable. Maybe try gcc-9 if compilation failes with wrong version.
- <N> = integer, number of columns
- <M> = integer, number of rows
- <p> = integer, number of processors to use with MPI-parallelization
+
+ <N> = integer, number of columns.
+ <M> = integer, number of rows.
+ <p> = integer, number of processors to use with MPI-parallelization.
+
 
 - To run the serial program for counting triple-friends of 10:
 Compile:
 	Terminal> gcc -O3 -o serial_main.exe serial_main.c
 Run:
 	Terminal> serial_main.exe <N> <M>
+
 
 - To run the MPI-parallelized program for counting triple-friends of 10:
 Compile:
