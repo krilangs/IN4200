@@ -9,30 +9,30 @@ int count_friends_of_ten(int M, int N, int** v)
     */
     int tot_friends = 0;
 
-    // Check horizontal
-    for (int i=0; i<M; i++){
-        for (int j=2; j<N; j++){
+    // Check horizontal.
+    for (int i = 0; i < M; i++){
+        for (int j = 2; j < N; j++){
             if (v[i][j] + v[i][j-1] + v[i][j-2] == 10){
                 tot_friends ++;
             }
         }
     }
 
-    for (int i=0; i<M-2; i++){
-        // Check vertical
-        for (int j=0; j<N; j++){
+    for (int i = 0; i < M-2; i++){
+        // Check vertical.
+        for (int j = 0; j < N; j++){
             if (v[i][j] + v[i+1][j] + v[i+2][j] == 10){
                 tot_friends ++;
             }
         }
-        // Check backward diagonal
-        for (int j=2; j<N; j++){
+        // Check backward diagonal.
+        for (int j = 2; j < N; j++){
             if (v[i][j] + v[i+1][j-1] + v[i+2][j-2] == 10){
                 tot_friends ++;
             }
         }
-        // Check forward diagonal
-        for (int j=0; j<N-2; j++){
+        // Check forward diagonal.
+        for (int j = 0; j < N-2; j++){
             if (v[i][j] + v[i+1][j+1] + v[i+2][j+2] == 10){
                 tot_friends ++;
             }

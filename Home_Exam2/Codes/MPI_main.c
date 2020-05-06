@@ -4,6 +4,12 @@
 
 int main (int argc, char **argv)
 {
+    /* MPI program that allocates a 2D array of dimension MxN,
+       assigns it with appropriate random integer values,
+       then calls a MPI parallelized function for counting
+       triple-friends of 10 in the 2D array. Also time the
+       counting function.
+    */
     int M, N, rank, size, num_triple_friends;
     int **v = NULL;
     double time_generate = 0, time_count = 0;
@@ -12,14 +18,15 @@ int main (int argc, char **argv)
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    if (rank==0) {
-        // Decide the values for M and N
-        N = atoi(argv[1]);  // Columns
-        M = atoi(argv[2]);  // Rows
-        printf("2D array dimension: %ix%i\n", M, N);
-        printf("Total number of processors: %d\n", size);
+    if (rank == 0) {
+        // Decide the values for M and N.
+        N = atoi(argv[1]);  // Columns.
+        M = atoi(argv[2]);  // Rows.
 
-        // Allocate 2D array v and assign it with suitable values
+        printf(" 2D array dimension: %ix%i\n", M, N);
+        printf(" Total number of processors: %d\n", size);
+
+        // Allocate 2D array v, and assign it with suitable values.
         double start_generate = MPI_Wtime();
         generate_random_2d_array(M, N, &v);
         double stop_generate = MPI_Wtime();
@@ -39,14 +46,14 @@ int main (int argc, char **argv)
     double stop_count = MPI_Wtime();
     time_count = stop_count - start_count;
 
-    if (rank==0){
-        printf("MPI rank <%d>: Number of triple friends = %d\n", rank, num_triple_friends);
-        printf("2D array generated in: %f s\n", time_generate);
-        printf("Time calculating friends of 10: %f s\n", time_count);
+    if (rank == 0){
+        printf(" MPI rank <%d>: Number of triple friends = %d\n", rank, num_triple_friends);
+        printf(" 2D array generated in: %f s\n", time_generate);
+        printf(" Time calculating friends of 10: %f s\n", time_count);
     }
 
-    if (rank==0){
-        // Deallocation of 2D array v
+    if (rank == 0){
+        // Deallocate 2D array v.
         free(v[0]);
         free(v);
     }

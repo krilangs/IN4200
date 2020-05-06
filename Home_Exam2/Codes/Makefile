@@ -3,7 +3,7 @@ CC := gcc
 MPICC := mpicc
 FLAGS := -Wall -g -O3
 
-PROGRAMS_win := serial_main.exe MPI_main.exe 
+PROGRAMS_win := serial_main.exe #MPI_main.exe 
 
 PROGRAMS_lin := serial_main.out MPI_main.out 
 
@@ -34,6 +34,6 @@ MPI_main.out : MPI_main.c $(DEP)
 	$(MPICC) $< -o $@ $(FLAGS)
 
 clean :
-	rm -f *.o $(PROGRAMS_win)
-	rm -f *.o $(PROGRAMS_lin)
+	-rm *.exe $(PROGRAMS_win)
+	-rm *.out $(PROGRAMS_lin)
 	@echo All cleaned

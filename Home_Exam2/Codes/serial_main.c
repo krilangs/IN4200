@@ -3,7 +3,13 @@
 
 int main(int argc, char **argv)
 {
-    // Test the count-function with known solution from home exam.
+    /* Serial program that allocates a 2D array of dimension MxN,
+       assigns it with appropriate random integer values,
+       then calls a function for counting
+       triple-friends of 10 in the 2D array. Also time the
+       counting function.
+    */
+    // Test the counting function with a known solution from home exam.
     int** v;
     int M, N;
 
@@ -14,9 +20,9 @@ int main(int argc, char **argv)
     printf(" 2D array dimension: 4x5\n");
     printf(" Total number of friends of 10 (should be 7): %i\n", tot_friends_test);
 
-    // Count total number of friends of 10 for a randomly generated 2D array.
-    N = atoi(argv[1]);  // Columns
-    M = atoi(argv[2]);  // Rows
+    // Count total number of triple-friends of 10 for a randomly generated 2D array.
+    N = atoi(argv[1]);  // Columns.
+    M = atoi(argv[2]);  // Rows.
 
     clock_t start_generate = clock();
     generate_random_2d_array(M, N, &v);
@@ -34,7 +40,9 @@ int main(int argc, char **argv)
     printf(" 2D array generated in: %f s\n", time_generate);
     printf(" Time calculating friends of 10: %f s\n", time_count);
 
+    // Deallocate 2D array v.
     free(v[0]);
     free(v);
+
     return 0;
 }
